@@ -31,6 +31,19 @@ export class AdminService {
     })
   }
 
+  getStudentById(studentId: any): Observable<any>{
+    return this.http.get<[]>(BASIC_URL+`api/admin/student/${studentId}`,{
+      headers: this.createAuthHeader()
+    })
+  }
+
+  updateStudent(studentId:number,studentDTO: any): Observable<any>{
+    
+    return this.http.put<[]>(BASIC_URL + `api/admin/student/${studentId}`,studentDTO,{
+      headers: this.createAuthHeader()
+    });
+  }
+
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();
     return authHeaders.set(

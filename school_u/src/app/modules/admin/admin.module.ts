@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import {MatCardModule} from '@angular/material/card';
+import { UpdateStudentComponent } from './admin-components/update-student/update-student.component';
 
 
 
@@ -23,7 +24,8 @@ import {MatCardModule} from '@angular/material/card';
   declarations: [
     AdmindashboardComponent,
     AddStudentComponent,
-    AllStudentsComponent
+    AllStudentsComponent,
+    UpdateStudentComponent
   ],
   imports: [
     CommonModule,

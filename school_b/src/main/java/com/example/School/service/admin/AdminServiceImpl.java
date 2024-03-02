@@ -1,5 +1,6 @@
 package com.example.School.service.admin;
 
+import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
 import com.example.School.entity.User;
 import com.example.School.enums.UserRole;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -82,6 +85,45 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return msg;
+    }
+
+    @Override
+    public SingleStudentDTO getStudentById(Long studentId) {
+
+       Optional<User> optionalUser = userRepository.findById(studentId);
+
+       if(optionalUser.isPresent()){
+          User user = optionalUser.get();
+           StudentDTO studentDTO = Stream.of(user).map(u-> new StudentDTO(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getFatherName(),
+                   u.getMotherName(), u.getStudentClass(), u.getDob(), u.getAddress(),u.getGender())).collect(Collectors.toList()).get(0);
+           SingleStudentDTO singleStudentDTO = new SingleStudentDTO();
+           singleStudentDTO.setStudentDTO(studentDTO);
+           return singleStudentDTO;
+       }
+
+        return null;
+    }
+
+    @Override
+    public StudentDTO updateStudent(StudentDTO studentDTO, Long studentId) {
+        Optional<User> optionalUser = userRepository.findById(studentId);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            user.setName(studentDTO.getName());
+            user.setDob(studentDTO.getDob());
+            user.setAddress(studentDTO.getAddress());
+            user.setEmail(studentDTO.getEmail());
+            user.setGender(studentDTO.getGender());
+            user.setFatherName(studentDTO.getFatherName());
+            user.setMotherName(studentDTO.getMotherName());
+            user.setStudentClass(studentDTO.getStudentClass());
+            User updateUser = userRepository.save(user);
+
+            StudentDTO studentDTO1 = Stream.of(updateUser).map(u-> new StudentDTO(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getFatherName(),
+                    u.getMotherName(), u.getStudentClass(), u.getDob(), u.getAddress(),u.getGender())).collect(Collectors.toList()).get(0);
+            return studentDTO1;
+        }
+        return null;
     }
 
 }

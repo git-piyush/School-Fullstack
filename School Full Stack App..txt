@@ -12,3 +12,9 @@ View All Student by admin
 Delete a student by admin
 
 Till first Commit
+
+
+delete student
+update student
+
+Till second commit

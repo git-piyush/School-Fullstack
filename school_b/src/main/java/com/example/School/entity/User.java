@@ -33,6 +33,21 @@ public class User {
 
     private String gender;
 
+    public User() {}
+
+    public User(Long id, String name, String email, String password, UserRole userRole, String fatherName, String motherName, String studentClass, Date dob, String address, String gender) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.fatherName = fatherName;
+        this.motherName = motherName;
+        this.studentClass = studentClass;
+        this.dob = dob;
+        this.address = address;
+        this.gender = gender;
+    }
 
     public String getFatherName() {
         return fatherName;

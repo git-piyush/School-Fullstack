@@ -1,5 +1,6 @@
 package com.example.School.controller;
 
+import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
 import com.example.School.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,31 @@ public class AdminController {
         String msg = adminService.deleteStudentById(studentId);
         System.out.println(msg);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<SingleStudentDTO> getStudent(@PathVariable Long studentId){
+        System.out.println("getStudent api executing started");
+        SingleStudentDTO singleStudentDTO = adminService.getStudentById(studentId);
+
+        if(singleStudentDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("getStudent api executing done");
+        return ResponseEntity.ok(singleStudentDTO);
+    }
+
+
+    @PutMapping("/student/{studentId}")
+    public ResponseEntity<?> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable Long studentId){
+        System.out.println("update api executing started");
+        StudentDTO updatedStudentDTO = adminService.updateStudent(studentDTO, studentId);
+        if(updatedStudentDTO==null){
+            return new ResponseEntity<>("Something went wrong.", HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("update api executing ended");
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedStudentDTO);
     }
 
 
