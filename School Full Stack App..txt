@@ -1,0 +1,14 @@
+School Full Stack App.
+
+
+Angular and Springboot generation
+Default Admin and password creation.
+UI Nav bar
+Login Functionalities
+Login Using jwt authentication
+Logout
+Add a student by admin
+View All Student by admin
+Delete a student by admin
+
+Till first Commit
