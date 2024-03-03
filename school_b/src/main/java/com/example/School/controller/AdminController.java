@@ -1,5 +1,6 @@
 package com.example.School.controller;
 
+import com.example.School.dto.FeeDTO;
 import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
 import com.example.School.service.admin.AdminService;
@@ -70,6 +71,16 @@ public class AdminController {
         }
         System.out.println("update api executing ended");
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedStudentDTO);
+    }
+
+
+    @PostMapping("/fee/{studentId}")
+    public ResponseEntity<?> payFee(@PathVariable Long studentId, @RequestBody FeeDTO feeDTO){
+        FeeDTO paidFeeDto = adminService.payFee(feeDTO, studentId);
+        if(paidFeeDto==null){
+            return new ResponseEntity<>("Somethign went wrong.", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(paidFeeDto);
     }
 
 

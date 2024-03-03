@@ -1,17 +1,19 @@
 package com.example.School.service.admin;
 
+import com.example.School.dto.FeeDTO;
 import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
+import com.example.School.entity.Fee;
 import com.example.School.entity.User;
 import com.example.School.enums.UserRole;
+import com.example.School.repository.FeeRepository;
 import com.example.School.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,8 +21,15 @@ import java.util.stream.Stream;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-    @Autowired
+
+    public AdminServiceImpl(UserRepository userRepository, FeeRepository feeRepository) {
+        this.userRepository = userRepository;
+        this.feeRepository = feeRepository;
+    }
+
     private UserRepository userRepository;
+
+    private FeeRepository feeRepository;
 
     @PostConstruct
     public void createAdminAccount(){
@@ -123,6 +132,32 @@ public class AdminServiceImpl implements AdminService {
                     u.getMotherName(), u.getStudentClass(), u.getDob(), u.getAddress(),u.getGender())).collect(Collectors.toList()).get(0);
             return studentDTO1;
         }
+        return null;
+    }
+
+    @Override
+    public FeeDTO payFee(FeeDTO feeDTO, Long studentId) {
+        Optional<User> optionalStudent = userRepository.findById(studentId);
+
+        if(optionalStudent.isPresent()){
+            Fee fee = new Fee();
+            fee.setAmount(feeDTO.getAmount());
+            fee.setMonth(feeDTO.getMonth());
+            fee.setDescription(feeDTO.getDescription());
+            fee.setCreatedDate(feeDTO.getCreatedDate());
+            fee.setGivenBy(feeDTO.getGivenBy());
+            fee.setUser(optionalStudent.get());
+            Fee paidFee = feeRepository.save(fee);
+            FeeDTO paidFeeDto = new FeeDTO();
+            paidFeeDto.setId(paidFee.getId());
+            paidFeeDto.setMonth(paidFee.getMonth());
+            paidFeeDto.setGivenBy(paidFee.getGivenBy());
+            paidFeeDto.setDescription(paidFee.getDescription());
+            paidFeeDto.setCreatedDate(paidFee.getCreatedDate());
+            return paidFeeDto;
+
+        }
+
         return null;
     }
 

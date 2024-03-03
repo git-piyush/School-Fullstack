@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import {MatCardModule} from '@angular/material/card';
 import { UpdateStudentComponent } from './admin-components/update-student/update-student.component';
+import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
 
 
 
@@ -25,7 +26,8 @@ import { UpdateStudentComponent } from './admin-components/update-student/update
     AdmindashboardComponent,
     AddStudentComponent,
     AllStudentsComponent,
-    UpdateStudentComponent
+    UpdateStudentComponent,
+    PayFeeComponent
   ],
   imports: [
     CommonModule,
