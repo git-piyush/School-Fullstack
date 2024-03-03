@@ -12,24 +12,31 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { ApplyLeaveComponent } from './student-components/apply-leave/apply-leave.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    StudentdashboardComponent
+    StudentdashboardComponent,
+    ApplyLeaveComponent
   ],
   imports: [
     CommonModule,
     StudentRoutingModule,
-        /////////////////
-        MatProgressSpinnerModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    /////////////////
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class StudentModule { }

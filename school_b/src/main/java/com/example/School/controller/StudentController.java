@@ -1,13 +1,12 @@
 package com.example.School.controller;
 
 import com.example.School.dto.SingleStudentDTO;
+import com.example.School.dto.StudentLeaveDTO;
 import com.example.School.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/student")
@@ -27,5 +26,16 @@ public class StudentController {
         System.out.println("getStudent api executing done");
         return ResponseEntity.ok(singleStudentDTO);
     }
+
+    @PostMapping("leave")
+    public ResponseEntity<?> applyLeave(@RequestBody StudentLeaveDTO studentLeaveDTO){
+        StudentLeaveDTO studentLeaveDTO1 = studentService.applyLeave(studentLeaveDTO);
+        if(studentLeaveDTO1 == null){
+            return new ResponseEntity<>("Something Went wrong", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentLeaveDTO1);
+    }
+
+
 
 }

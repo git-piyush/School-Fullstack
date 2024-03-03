@@ -19,6 +19,15 @@ export class StudentService {
       headers: this.createAuthHeader()
     })
   }
+
+  applyLeave(studentLeaveDTO): Observable<any>{
+    studentLeaveDTO.userId = StorageService.getUserId();
+    return this.http.post<[]>(BASIC_URL+"api/student/leave",studentLeaveDTO,{
+      headers: this.createAuthHeader()
+    })
+  }
+
+
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();
     return authHeaders.set(
