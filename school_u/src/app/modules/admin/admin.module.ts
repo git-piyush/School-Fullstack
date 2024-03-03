@@ -14,8 +14,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import {MatCardModule} from '@angular/material/card';
+import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import { UpdateStudentComponent } from './admin-components/update-student/update-student.component';
 import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
 

@@ -50,6 +50,15 @@ export class StorageService {
     return user.role;
   }
 
+  static getUserId(){
+    const user = this.getUser();
+    if(user == null){
+      return '';
+    }else{
+      return user.userId;
+    }
+  }
+
   static getUser():any {
     return JSON.parse(localStorage.getItem(USER));
   }

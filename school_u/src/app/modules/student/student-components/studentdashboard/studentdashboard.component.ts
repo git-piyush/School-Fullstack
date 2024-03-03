@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StudentService } from '../../student-service/student.service';
 
 @Component({
   selector: 'app-studentdashboard',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrl: './studentdashboard.component.scss'
 })
 export class StudentdashboardComponent {
+
+  student: any;
+
+  constructor(private service: StudentService){}
+
+  ngOnInit(){
+    this.getStudentById();
+  }
+
+  getStudentById(){
+    this.service.getStudentById().subscribe((res)=>{
+      console.log(res);
+      this.student = res.studentDTO;
+    })
+  }
 
 }

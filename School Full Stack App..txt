@@ -24,5 +24,9 @@ Pay Student Fee
 Third Commit
 
 
+View Student Profile by student.
+Fourth Commit
+
+
 
 
