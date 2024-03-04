@@ -1,15 +1,12 @@
 package com.example.School.dto;
 
 import com.example.School.enums.StudentLeaveStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
 public class StudentLeaveDTO {
 
     private Long id;
@@ -24,4 +21,15 @@ public class StudentLeaveDTO {
 
     private Long userId;
 
+    public StudentLeaveDTO() {
+    }
+
+    public StudentLeaveDTO(Long id, String subject, String body, Date date, StudentLeaveStatus studentLeaveStatus, Long userId) {
+        this.id = id;
+        this.subject = subject;
+        this.body = body;
+        this.date = date;
+        this.studentLeaveStatus = studentLeaveStatus;
+        this.userId = userId;
+    }
 }

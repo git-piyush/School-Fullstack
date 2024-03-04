@@ -15,12 +15,14 @@ import {MatCardModule} from '@angular/material/card';
 import { ApplyLeaveComponent } from './student-components/apply-leave/apply-leave.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { GetAllLeavesComponent } from './student-components/get-all-leaves/get-all-leaves.component';
 
 
 @NgModule({
   declarations: [
     StudentdashboardComponent,
-    ApplyLeaveComponent
+    ApplyLeaveComponent,
+    GetAllLeavesComponent
   ],
   imports: [
     CommonModule,

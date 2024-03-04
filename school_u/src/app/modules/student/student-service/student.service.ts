@@ -27,6 +27,13 @@ export class StudentService {
     })
   }
 
+  getAllAppliedLeavesByStudentId(): Observable<any>{
+    console.log("before call"+StorageService.getToken());
+    return this.http.get<[]>(BASIC_URL + `api/student/leave/${StorageService.getUserId()}`,{
+      headers: this.createAuthHeader()
+    })
+  }
+
 
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();

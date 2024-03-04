@@ -11,6 +11,7 @@ import com.example.School.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,6 +59,19 @@ public class StudentServiceImpl implements StudentService{
             return studentLeaveDTO1;
         }
 
+        return null;
+    }
+
+    @Override
+    public List<StudentLeaveDTO> getAllAppliedLeavesByStudentId(Long studentId) {
+        List<StudentLeave> studentLeaves = studentLeaveRepository.findAllByUserId(studentId);
+
+        if(studentLeaves!=null && studentLeaves.size()>0){
+            List<StudentLeaveDTO> studentLeaveDTOList = studentLeaves.stream().map(student-> new StudentLeaveDTO(student.getId(),
+                    student.getSubject(), student.getBody(), student.getDate(),
+                    student.getStudentLeaveStatus(), student.getUser().getId())).collect(Collectors.toList());
+            return studentLeaveDTOList;
+        }
         return null;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
@@ -36,6 +38,12 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(studentLeaveDTO1);
     }
 
-
-
+    @GetMapping("leave/{studentId}")
+    public ResponseEntity<List<StudentLeaveDTO>> getAllAppliedLeavesByStudentId(@PathVariable Long studentId){
+        List<StudentLeaveDTO> studentLeaveDTO = studentService.getAllAppliedLeavesByStudentId(studentId);
+        if(studentLeaveDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+          return  ResponseEntity.ok(studentLeaveDTO);
+    }
 }
