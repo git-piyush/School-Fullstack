@@ -50,6 +50,20 @@ export class AdminService {
     });
   }
 
+  getAllLeaves(): Observable<any>{
+    console.log("before call"+StorageService.getToken());
+    return this.http.get<[]>(BASIC_URL + "api/admin/leaves",{
+      headers: this.createAuthHeader()
+    })
+  }
+
+  changeLeaveStatus(leaveId: number, status:string): Observable<any>{
+    console.log("before call"+leaveId+" "+status);
+    return this.http.get<[]>(BASIC_URL+`api/admin/leave/${leaveId}/${status}`,{
+      headers: this.createAuthHeader()
+    })
+  }
+
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();
     return authHeaders.set(

@@ -3,6 +3,7 @@ package com.example.School.service.admin;
 import com.example.School.dto.FeeDTO;
 import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
+import com.example.School.dto.StudentLeaveDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface AdminService {
     StudentDTO updateStudent(StudentDTO studentDTO, Long studentId);
 
     FeeDTO payFee(FeeDTO feeDTO, Long studentId);
+
+    List<StudentLeaveDTO> getAllAppliedLeaves();
+
+    StudentLeaveDTO changeLeaveStatus(Long leaveId, String status);
 }

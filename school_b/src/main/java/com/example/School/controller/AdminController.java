@@ -3,6 +3,7 @@ package com.example.School.controller;
 import com.example.School.dto.FeeDTO;
 import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
+import com.example.School.dto.StudentLeaveDTO;
 import com.example.School.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -81,6 +82,29 @@ public class AdminController {
             return new ResponseEntity<>("Somethign went wrong.", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(paidFeeDto);
+    }
+
+
+    @GetMapping("/leaves")
+    public ResponseEntity<List<StudentLeaveDTO>> getAllAppliedLeaves(){
+        List<StudentLeaveDTO> studentLeaveDTO = adminService.getAllAppliedLeaves();
+        if(studentLeaveDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        return  ResponseEntity.ok(studentLeaveDTO);
+    }
+
+
+    @GetMapping("/leave/{leaveId}/{status}")
+    public ResponseEntity<?> changeLeaveStatus(@PathVariable Long leaveId, @PathVariable String status){
+        System.out.println("changeLeaveStatus api executing started");
+        StudentLeaveDTO studentLeaveDTO = adminService.changeLeaveStatus(leaveId,status);
+
+        if(studentLeaveDTO == null){
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("changeLeaveStatus api executing done");
+        return ResponseEntity.ok(studentLeaveDTO);
     }
 
 

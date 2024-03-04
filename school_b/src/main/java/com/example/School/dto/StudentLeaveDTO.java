@@ -19,17 +19,20 @@ public class StudentLeaveDTO {
 
     private StudentLeaveStatus studentLeaveStatus;
 
+    private String studentClass;
+
     private Long userId;
 
     public StudentLeaveDTO() {
     }
 
-    public StudentLeaveDTO(Long id, String subject, String body, Date date, StudentLeaveStatus studentLeaveStatus, Long userId) {
+    public StudentLeaveDTO(Long id, String subject, String body, Date date, StudentLeaveStatus studentLeaveStatus, String studentClass, Long userId) {
         this.id = id;
         this.subject = subject;
         this.body = body;
         this.date = date;
         this.studentLeaveStatus = studentLeaveStatus;
+        this.studentClass = studentClass;
         this.userId = userId;
     }
 }

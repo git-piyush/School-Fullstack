@@ -6,13 +6,15 @@ import { AddStudentComponent } from './admin-components/add-student/add-student.
 import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import { UpdateStudentComponent } from './admin-components/update-student/update-student.component';
 import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
+import { AllLeavesComponent } from './admin-components/all-leaves/all-leaves.component';
 
 const routes: Routes = [
  { path:"admindashboard", component : AdmindashboardComponent, canActivate:[adminGuard] },
  {path:"student",component:AddStudentComponent, canActivate:[adminGuard]},
  {path:"students",component:AllStudentsComponent, canActivate:[adminGuard]},
  {path:"student/:studentId",component:UpdateStudentComponent, canActivate:[adminGuard]},
- {path:"fee/:studentId",component:PayFeeComponent, canActivate:[adminGuard]}
+ {path:"fee/:studentId",component:PayFeeComponent, canActivate:[adminGuard]},
+ {path:"leaves",component:AllLeavesComponent, canActivate:[adminGuard]}
 
 ];
 

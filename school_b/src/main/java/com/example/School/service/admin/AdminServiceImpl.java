@@ -3,18 +3,24 @@ package com.example.School.service.admin;
 import com.example.School.dto.FeeDTO;
 import com.example.School.dto.SingleStudentDTO;
 import com.example.School.dto.StudentDTO;
+import com.example.School.dto.StudentLeaveDTO;
 import com.example.School.entity.Fee;
+import com.example.School.entity.StudentLeave;
 import com.example.School.entity.User;
+import com.example.School.enums.StudentLeaveStatus;
 import com.example.School.enums.UserRole;
 import com.example.School.repository.FeeRepository;
+import com.example.School.repository.StudentLeaveRepository;
 import com.example.School.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,6 +36,9 @@ public class AdminServiceImpl implements AdminService {
     private UserRepository userRepository;
 
     private FeeRepository feeRepository;
+
+    @Autowired
+    private StudentLeaveRepository studentLeaveRepository;
 
     @PostConstruct
     public void createAdminAccount(){
@@ -156,6 +165,41 @@ public class AdminServiceImpl implements AdminService {
             paidFeeDto.setCreatedDate(paidFee.getCreatedDate());
             return paidFeeDto;
 
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<StudentLeaveDTO> getAllAppliedLeaves() {
+        List<StudentLeave> studentLeaves = studentLeaveRepository.findAll();
+        if(studentLeaves!=null && studentLeaves.size()>0){
+            List<StudentLeaveDTO> studentLeaveDTOList = studentLeaves.stream().map(student-> new StudentLeaveDTO(student.getId(),
+                    student.getSubject(), student.getBody(), student.getDate(),
+                    student.getStudentLeaveStatus(),student.getUser().getStudentClass(), student.getUser().getId())).collect(Collectors.toList());
+            return studentLeaveDTOList;
+        }
+        return null;
+    }
+
+    @Override
+    public StudentLeaveDTO changeLeaveStatus(Long leaveId, String status) {
+
+        Optional<StudentLeave> optionalStudentLeave = studentLeaveRepository.findById(leaveId);
+        if(optionalStudentLeave.isPresent()){
+            StudentLeave studentLeave = optionalStudentLeave.get();
+            if(Objects.equals(status, "Approve")){
+                studentLeave.setStudentLeaveStatus(StudentLeaveStatus.Approved);
+            }else{
+                studentLeave.setStudentLeaveStatus(StudentLeaveStatus.Disapproved);
+            }
+
+            StudentLeave updatedStudentLeave = studentLeaveRepository.save(studentLeave);
+
+            StudentLeaveDTO updatedStudentLeaveDTO = Stream.of(updatedStudentLeave).map(leave-> new StudentLeaveDTO(leave.getId(),
+                    leave.getSubject(), leave.getBody(), leave.getDate(),
+                    leave.getStudentLeaveStatus(),leave.getUser().getStudentClass(), leave.getUser().getId())).collect(Collectors.toList()).get(0);
+            return updatedStudentLeaveDTO;
         }
 
         return null;

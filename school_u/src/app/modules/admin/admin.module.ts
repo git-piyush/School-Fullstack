@@ -18,6 +18,8 @@ import {MatCardModule} from '@angular/material/card';
 import { AllStudentsComponent } from './admin-components/all-students/all-students.component';
 import { UpdateStudentComponent } from './admin-components/update-student/update-student.component';
 import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
+import { AllLeavesComponent } from './admin-components/all-leaves/all-leaves.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -27,7 +29,8 @@ import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
     AddStudentComponent,
     AllStudentsComponent,
     UpdateStudentComponent,
-    PayFeeComponent
+    PayFeeComponent,
+    AllLeavesComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +46,8 @@ import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
     MatNativeDateModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ]
 })
 export class AdminModule { }

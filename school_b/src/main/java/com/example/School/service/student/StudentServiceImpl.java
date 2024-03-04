@@ -69,7 +69,7 @@ public class StudentServiceImpl implements StudentService{
         if(studentLeaves!=null && studentLeaves.size()>0){
             List<StudentLeaveDTO> studentLeaveDTOList = studentLeaves.stream().map(student-> new StudentLeaveDTO(student.getId(),
                     student.getSubject(), student.getBody(), student.getDate(),
-                    student.getStudentLeaveStatus(), student.getUser().getId())).collect(Collectors.toList());
+                    student.getStudentLeaveStatus(),student.getUser().getStudentClass(), student.getUser().getId())).collect(Collectors.toList());
             return studentLeaveDTOList;
         }
         return null;
