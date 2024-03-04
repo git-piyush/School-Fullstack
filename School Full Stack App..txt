@@ -40,6 +40,9 @@ sixth commit
 View All the leaves by Admin and Approve/Reject functionality
 7th commit
 
+update student profile by student
+8th commit
+
 
 
 

@@ -74,4 +74,26 @@ public class StudentServiceImpl implements StudentService{
         }
         return null;
     }
+
+    @Override
+    public StudentDTO updateStudent(StudentDTO studentDTO, Long studentId) {
+        Optional<User> optionalUser = userRepository.findById(studentId);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            user.setName(studentDTO.getName());
+            user.setDob(studentDTO.getDob());
+            user.setAddress(studentDTO.getAddress());
+            user.setEmail(studentDTO.getEmail());
+            user.setGender(studentDTO.getGender());
+            user.setFatherName(studentDTO.getFatherName());
+            user.setMotherName(studentDTO.getMotherName());
+            user.setStudentClass(studentDTO.getStudentClass());
+            User updateUser = userRepository.save(user);
+
+            StudentDTO studentDTO1 = Stream.of(updateUser).map(u-> new StudentDTO(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getFatherName(),
+                    u.getMotherName(), u.getStudentClass(), u.getDob(), u.getAddress(),u.getGender())).collect(Collectors.toList()).get(0);
+            return studentDTO1;
+        }
+        return null;
+    }
 }

@@ -34,6 +34,13 @@ export class StudentService {
     })
   }
 
+  updateStudent(studentDTO: any): Observable<any>{
+    
+    return this.http.put<[]>(BASIC_URL + `api/student/${StorageService.getUserId()}`,studentDTO,{
+      headers: this.createAuthHeader()
+    });
+  }
+
 
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();

@@ -16,7 +16,7 @@ export class UpdateStudentComponent {
   studentId : number = this.activatedRoute.snapshot.params['studentId']
   isSpinning: boolean;
 
-  CLASS: string[] = ["Play","1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th"];
+  CLASS: string[] = ["Matriculation","Intermediate","Graduation","Post Graduation","Sports"];
 
   GENDER: string[] = ["Male", "Female", "Not Specified"];
 

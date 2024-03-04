@@ -16,13 +16,15 @@ import { ApplyLeaveComponent } from './student-components/apply-leave/apply-leav
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GetAllLeavesComponent } from './student-components/get-all-leaves/get-all-leaves.component';
+import { UpdateStudentComponent } from './student-components/update-student/update-student.component';
 
 
 @NgModule({
   declarations: [
     StudentdashboardComponent,
     ApplyLeaveComponent,
-    GetAllLeavesComponent
+    GetAllLeavesComponent,
+    UpdateStudentComponent
   ],
   imports: [
     CommonModule,

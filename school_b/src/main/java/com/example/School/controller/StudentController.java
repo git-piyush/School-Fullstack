@@ -1,6 +1,7 @@
 package com.example.School.controller;
 
 import com.example.School.dto.SingleStudentDTO;
+import com.example.School.dto.StudentDTO;
 import com.example.School.dto.StudentLeaveDTO;
 import com.example.School.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,16 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
           return  ResponseEntity.ok(studentLeaveDTO);
+    }
+
+    @PutMapping("/{studentId}")
+    public ResponseEntity<?> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable Long studentId){
+        System.out.println("update api executing started");
+        StudentDTO updatedStudentDTO = studentService.updateStudent(studentDTO, studentId);
+        if(updatedStudentDTO==null){
+            return new ResponseEntity<>("Something went wrong.", HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("update api executing ended");
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedStudentDTO);
     }
 }

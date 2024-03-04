@@ -1,6 +1,7 @@
 package com.example.School.service.student;
 
 import com.example.School.dto.SingleStudentDTO;
+import com.example.School.dto.StudentDTO;
 import com.example.School.dto.StudentLeaveDTO;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +14,6 @@ public interface StudentService {
     StudentLeaveDTO applyLeave(StudentLeaveDTO studentLeaveDTO);
 
     List<StudentLeaveDTO> getAllAppliedLeavesByStudentId(Long studentId);
+
+    StudentDTO updateStudent(StudentDTO studentDTO, Long studentId);
 }
