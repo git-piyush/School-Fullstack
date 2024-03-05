@@ -64,6 +64,18 @@ export class AdminService {
     })
   }
 
+  addTeacher(teacherDTO: any): Observable<any>{
+    return this.http.post<[]>(BASIC_URL + "api/admin/teacher",teacherDTO,{
+      headers: this.createAuthHeader()
+    });
+  }
+
+  getAllTeachers(): Observable<any>{
+    return this.http.get<[]>(BASIC_URL+"api/admin/teachers",{
+      headers: this.createAuthHeader()
+    })
+  }
+
   createAuthHeader(): HttpHeaders{
     let authHeaders : HttpHeaders = new HttpHeaders();
     return authHeaders.set(

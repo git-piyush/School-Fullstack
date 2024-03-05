@@ -1,16 +1,15 @@
 package com.example.School.service.admin;
 
-import com.example.School.dto.FeeDTO;
-import com.example.School.dto.SingleStudentDTO;
-import com.example.School.dto.StudentDTO;
-import com.example.School.dto.StudentLeaveDTO;
+import com.example.School.dto.*;
 import com.example.School.entity.Fee;
 import com.example.School.entity.StudentLeave;
+import com.example.School.entity.Teacher;
 import com.example.School.entity.User;
 import com.example.School.enums.StudentLeaveStatus;
 import com.example.School.enums.UserRole;
 import com.example.School.repository.FeeRepository;
 import com.example.School.repository.StudentLeaveRepository;
+import com.example.School.repository.TeacherRepository;
 import com.example.School.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +35,9 @@ public class AdminServiceImpl implements AdminService {
     private UserRepository userRepository;
 
     private FeeRepository feeRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Autowired
     private StudentLeaveRepository studentLeaveRepository;
@@ -203,6 +205,35 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return null;
+    }
+
+    @Override
+    public TeacherDTO postTeacher(TeacherDTO teacherDTO) {
+
+        Teacher teacher = new Teacher();
+        BeanUtils.copyProperties(teacherDTO, teacher);
+
+       // Optional<User> optionaUser = userRepository.findFirstByEmail(studentDTO.getEmail());
+
+        Teacher createdTeacher = teacherRepository.save(teacher);
+
+        TeacherDTO createdTeacherDTO = new TeacherDTO();
+
+        BeanUtils.copyProperties(createdTeacher, createdTeacherDTO);
+        createdTeacherDTO.setId(createdTeacher.getId());
+        return createdTeacherDTO;
+
+    }
+
+    @Override
+    public List<TeacherDTO> getAllTeachers() {
+        List<TeacherDTO> allTeachersDTO = teacherRepository.findAll()
+                .stream().map(teacher-> new TeacherDTO(teacher.getId(),teacher.getEmail(),teacher.getName()
+                ,teacher.getGender(),teacher.getDepartment(),teacher.getQualification(),
+                        teacher.getDob(), teacher.getAddress())).collect(Collectors.toList());
+
+
+        return allTeachersDTO;
     }
 
 }

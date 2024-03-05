@@ -20,6 +20,8 @@ import { UpdateStudentComponent } from './admin-components/update-student/update
 import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
 import { AllLeavesComponent } from './admin-components/all-leaves/all-leaves.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { AddTeacherComponent } from './admin-components/add-teacher/add-teacher.component';
+import { GatAllTeachersComponent } from './admin-components/gat-all-teachers/gat-all-teachers.component';
 
 
 
@@ -30,7 +32,9 @@ import {MatMenuModule} from '@angular/material/menu';
     AllStudentsComponent,
     UpdateStudentComponent,
     PayFeeComponent,
-    AllLeavesComponent
+    AllLeavesComponent,
+    AddTeacherComponent,
+    GatAllTeachersComponent
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,6 @@
 package com.example.School.controller;
 
-import com.example.School.dto.FeeDTO;
-import com.example.School.dto.SingleStudentDTO;
-import com.example.School.dto.StudentDTO;
-import com.example.School.dto.StudentLeaveDTO;
+import com.example.School.dto.*;
 import com.example.School.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -105,6 +102,26 @@ public class AdminController {
         }
         System.out.println("changeLeaveStatus api executing done");
         return ResponseEntity.ok(studentLeaveDTO);
+    }
+
+
+    @PostMapping("/teacher")
+    public ResponseEntity<?> addTeacher(@RequestBody TeacherDTO teacherDTO){
+        TeacherDTO createdTeacherDTO = adminService.postTeacher(teacherDTO);
+        if(createdTeacherDTO==null){
+            return ResponseEntity.status(HttpStatus.FOUND).body("Student Already Present");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTeacherDTO);
+    }
+
+
+    @GetMapping("/teachers")
+    public ResponseEntity<List<TeacherDTO>> getAllTeachers(){
+        List<TeacherDTO> allTeachersDTO =  adminService.getAllTeachers();
+        if(allTeachersDTO!=null && !allTeachersDTO.isEmpty()){
+            return new ResponseEntity<List<TeacherDTO>>(allTeachersDTO, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 
