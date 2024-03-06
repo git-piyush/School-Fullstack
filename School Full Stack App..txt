@@ -51,3 +51,7 @@ delete teacher and update teacher by Admin
 10th commit
 
 
+home page
+10th commit
+
+

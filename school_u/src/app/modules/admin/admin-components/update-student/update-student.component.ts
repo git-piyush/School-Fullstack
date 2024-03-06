@@ -54,7 +54,7 @@ export class UpdateStudentComponent {
 
   updateStudent(){
     this.service.updateStudent(this.studentId, this.validateForm.value).subscribe((res)=>{
-      console.log("update student before call"+res);
+      console.log(res);
       if(res.id!=null){
         this.snackBar.open("Student Update successfully","Close",{ duration: 5000});
         this.router.navigateByUrl("/admin/students");
