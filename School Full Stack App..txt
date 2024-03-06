@@ -44,9 +44,10 @@ update student profile by student
 8th commit
 
 
-Add teacher and view teacher teacher by Admin
+Add teacher and view teacher by Admin
 9th commit
 
-
+delete teacher and update teacher by Admin
+10th commit
 
 

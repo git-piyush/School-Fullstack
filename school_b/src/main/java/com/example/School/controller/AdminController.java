@@ -124,5 +124,32 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
+    @DeleteMapping("/teacher/{teacherId}")
+    public ResponseEntity<Void> deleteTeacher(@PathVariable Long teacherId){
+        String msg = adminService.deleteTeacherById(teacherId);
+        return ResponseEntity.noContent().build();
+    }
 
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<SingleTeacherDTO> getTeacher(@PathVariable Long teacherId){
+        System.out.println("getTeacher api executing started");
+        SingleTeacherDTO teacherDTO = adminService.getTeacherById(teacherId);
+
+        if(teacherDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("getTeacher api executing done");
+        return ResponseEntity.ok(teacherDTO);
+    }
+
+    @PutMapping("/teacher/{teacherId}")
+    public ResponseEntity<?> updateTeacher(@RequestBody TeacherDTO teacherDTO, @PathVariable Long teacherId){
+        System.out.println("update api executing started");
+        TeacherDTO updatedTeacherDTO = adminService.updateTeacher(teacherDTO, teacherId);
+        if(updatedTeacherDTO==null){
+            return new ResponseEntity<>("Something went wrong.", HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("update api executing ended");
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedTeacherDTO);
+    }
 }

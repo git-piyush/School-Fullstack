@@ -83,4 +83,23 @@ export class AdminService {
     );
   }
 
+  deleteTeacher(teacherId: any): Observable<any>{
+    return this.http.delete<[]>(BASIC_URL+`api/admin/teacher/${teacherId}`,{
+      headers: this.createAuthHeader()
+    })
+  }
+
+  getTeacherById(teacherId: number):Observable<any>{
+    return this.http.get<[]>(BASIC_URL+`api/admin/teacher/${teacherId}`,{
+      headers: this.createAuthHeader()
+    });
+  }
+
+  updateTeacher(teacherId:number,teacherDTO: any): Observable<any>{
+    
+    return this.http.put<[]>(BASIC_URL + `api/admin/teacher/${teacherId}`,teacherDTO,{
+      headers: this.createAuthHeader()
+    });
+  }
+
 }

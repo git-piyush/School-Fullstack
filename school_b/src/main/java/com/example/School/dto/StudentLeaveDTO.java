@@ -21,18 +21,21 @@ public class StudentLeaveDTO {
 
     private String studentClass;
 
+    private String studentName;
+
     private Long userId;
 
     public StudentLeaveDTO() {
     }
 
-    public StudentLeaveDTO(Long id, String subject, String body, Date date, StudentLeaveStatus studentLeaveStatus, String studentClass, Long userId) {
+    public StudentLeaveDTO(Long id, String subject, String body, Date date, StudentLeaveStatus studentLeaveStatus, String studentClass,String studentName, Long userId) {
         this.id = id;
         this.subject = subject;
         this.body = body;
         this.date = date;
         this.studentLeaveStatus = studentLeaveStatus;
         this.studentClass = studentClass;
+        this.studentName = studentName;
         this.userId = userId;
     }
 }

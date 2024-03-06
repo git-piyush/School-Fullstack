@@ -9,6 +9,7 @@ import { PayFeeComponent } from './admin-components/pay-fee/pay-fee.component';
 import { AllLeavesComponent } from './admin-components/all-leaves/all-leaves.component';
 import { AddTeacherComponent } from './admin-components/add-teacher/add-teacher.component';
 import { GatAllTeachersComponent } from './admin-components/gat-all-teachers/gat-all-teachers.component';
+import { UpdateTeacherComponent } from './admin-components/update-teacher/update-teacher.component';
 
 const routes: Routes = [
  { path:"admindashboard", component : AdmindashboardComponent, canActivate:[adminGuard] },
@@ -19,6 +20,7 @@ const routes: Routes = [
  {path:"leaves",component:AllLeavesComponent, canActivate:[adminGuard]},
  {path:"teacher",component:AddTeacherComponent, canActivate:[adminGuard]},
  {path:"teachers",component:GatAllTeachersComponent, canActivate:[adminGuard]},
+ {path:"teacher/:teacherId",component:UpdateTeacherComponent, canActivate:[adminGuard]}
 
 ];
 

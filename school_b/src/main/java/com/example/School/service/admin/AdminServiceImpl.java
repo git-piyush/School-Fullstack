@@ -178,7 +178,7 @@ public class AdminServiceImpl implements AdminService {
         if(studentLeaves!=null && studentLeaves.size()>0){
             List<StudentLeaveDTO> studentLeaveDTOList = studentLeaves.stream().map(student-> new StudentLeaveDTO(student.getId(),
                     student.getSubject(), student.getBody(), student.getDate(),
-                    student.getStudentLeaveStatus(),student.getUser().getStudentClass(), student.getUser().getId())).collect(Collectors.toList());
+                    student.getStudentLeaveStatus(),student.getUser().getStudentClass(),student.getUser().getName(), student.getUser().getId())).collect(Collectors.toList());
             return studentLeaveDTOList;
         }
         return null;
@@ -200,7 +200,7 @@ public class AdminServiceImpl implements AdminService {
 
             StudentLeaveDTO updatedStudentLeaveDTO = Stream.of(updatedStudentLeave).map(leave-> new StudentLeaveDTO(leave.getId(),
                     leave.getSubject(), leave.getBody(), leave.getDate(),
-                    leave.getStudentLeaveStatus(),leave.getUser().getStudentClass(), leave.getUser().getId())).collect(Collectors.toList()).get(0);
+                    leave.getStudentLeaveStatus(),leave.getUser().getStudentClass(), leave.getUser().getName(), leave.getUser().getId())).collect(Collectors.toList()).get(0);
             return updatedStudentLeaveDTO;
         }
 
@@ -234,6 +234,65 @@ public class AdminServiceImpl implements AdminService {
 
 
         return allTeachersDTO;
+    }
+
+    @Override
+    public String deleteTeacherById(Long teacherId) {
+        String msg = "";
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+
+        if (teacher != null) {
+            try {
+                teacherRepository.deleteById(teacherId);
+                msg = "Success";
+            } catch (Exception e) {
+                msg = "Fail";
+            }
+        }
+
+        return msg;
+    }
+
+    @Override
+    public SingleTeacherDTO getTeacherById(Long teacherId) {
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
+
+        if(optionalTeacher.isPresent()){
+            Teacher teacher = optionalTeacher.get();
+            TeacherDTO teacherDTO = Stream.of(teacher).map(t-> new TeacherDTO(t.getId(),t.getEmail(),t.getName()
+                    ,t.getGender(),t.getDepartment(),t.getQualification(),
+                    t.getDob(), t.getAddress())).collect(Collectors.toList()).get(0);
+            SingleTeacherDTO singleTeacherDTO = new SingleTeacherDTO();
+            singleTeacherDTO.setTeacherDTO(teacherDTO);
+            return singleTeacherDTO;
+        }
+
+        return null;
+    }
+
+    @Override
+    public TeacherDTO updateTeacher(TeacherDTO teacherDTO, Long teacherId) {
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
+        if(optionalTeacher.isPresent()){
+            Teacher teacher = optionalTeacher.get();
+
+
+
+            teacher.setName(teacherDTO.getName());
+            teacher.setDob(teacherDTO.getDob());
+            teacher.setAddress(teacherDTO.getAddress());
+            teacher.setEmail(teacherDTO.getEmail());
+            teacher.setGender(teacherDTO.getGender());
+            teacher.setDepartment(teacherDTO.getDepartment());
+            teacher.setQualification(teacherDTO.getQualification());
+            Teacher updatedTeacher = teacherRepository.save(teacher);
+
+            TeacherDTO updatedTeacherDTO = new TeacherDTO();
+
+            BeanUtils.copyProperties(updatedTeacher, updatedTeacherDTO);
+            return updatedTeacherDTO;
+        }
+        return null;
     }
 
 }

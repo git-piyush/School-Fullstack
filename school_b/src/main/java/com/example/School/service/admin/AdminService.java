@@ -26,4 +26,10 @@ public interface AdminService {
     TeacherDTO postTeacher(TeacherDTO teacherDTO);
 
     List<TeacherDTO> getAllTeachers();
+
+    String deleteTeacherById(Long teacherId);
+
+    SingleTeacherDTO getTeacherById(Long teacherId);
+
+    TeacherDTO updateTeacher(TeacherDTO teacherDTO, Long teacherId);
 }
