@@ -1,8 +1,10 @@
 package com.example.School.service;
 
+import com.example.School.dto.ChartDTO;
 import com.example.School.dto.TeacherDTO;
 import com.example.School.entity.Teacher;
 import com.example.School.repository.TeacherRepository;
+import com.example.School.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class HomeService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     public List<TeacherDTO> getAllTeachers(){
         List<Teacher> allTeachers = teacherRepository.findAll();
 
@@ -24,4 +30,10 @@ public class HomeService {
         return teacherDTOList;
     }
 
+    public ChartDTO getChartData() {
+        ChartDTO chartDTO = new ChartDTO();
+        chartDTO.setNoOfTeachers(teacherRepository.count());
+        chartDTO.setNoOfStudents(userRepository.count());
+        return chartDTO;
+    }
 }

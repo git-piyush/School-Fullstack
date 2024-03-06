@@ -102,4 +102,8 @@ export class AdminService {
     });
   }
 
+  getChartData(): Observable<any>{
+    return this.http.get(BASIC_URL+"chartdata");
+  }
+
 }

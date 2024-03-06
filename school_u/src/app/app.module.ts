@@ -15,6 +15,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HomeComponent } from './home/home.component';
 import {MatCardModule} from '@angular/material/card';
 
+import { Chart } from 'chart.js';
+import { registerables } from 'chart.js';
+Chart.register(...registerables);
+
 
 @NgModule({
   declarations: [

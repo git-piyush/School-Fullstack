@@ -51,6 +51,12 @@
         }
     }
     mat-card-actions{
-        justify-content: fle;
+        justify-content: flex;
     }
+}
+
+.container {
+    height: 300px;
+    width: 645px;
+    place-items: center;
 }

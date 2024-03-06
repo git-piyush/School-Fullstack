@@ -1,5 +1,6 @@
 package com.example.School.controller;
 
+import com.example.School.dto.ChartDTO;
 import com.example.School.dto.TeacherDTO;
 import com.example.School.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public class HomeController {
     public ResponseEntity<List<TeacherDTO>> getAllTeachers(){
         List<TeacherDTO> allTeachers = homeService.getAllTeachers();
         return ResponseEntity.ok(allTeachers);
+    }
+
+    @GetMapping("/chartdata")
+    public ResponseEntity<ChartDTO> getChartData(){
+        ChartDTO chartDTO = homeService.getChartData();
+        return ResponseEntity.ok(chartDTO);
     }
 
 }
