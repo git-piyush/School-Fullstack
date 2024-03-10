@@ -275,9 +275,6 @@ public class AdminServiceImpl implements AdminService {
         Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
         if(optionalTeacher.isPresent()){
             Teacher teacher = optionalTeacher.get();
-
-
-
             teacher.setName(teacherDTO.getName());
             teacher.setDob(teacherDTO.getDob());
             teacher.setAddress(teacherDTO.getAddress());
@@ -293,6 +290,43 @@ public class AdminServiceImpl implements AdminService {
             return updatedTeacherDTO;
         }
         return null;
+    }
+
+    @Override
+    public List<StudentLeaveDTO> findAllLeavesByStudentLeaveStatus(String status) {
+        System.out.println(status);
+        StudentLeaveStatus status1 = null;
+        if(status.equalsIgnoreCase("Approved")){
+            status1 = StudentLeaveStatus.Approved;
+        }else if(status.equalsIgnoreCase("Pending")){
+            status1 = StudentLeaveStatus.Pending;
+        } else if (status.equalsIgnoreCase("Disapproved")) {
+            status1 = StudentLeaveStatus.Disapproved;
+        }
+        List<StudentLeave> studentLeaves = studentLeaveRepository.findAllLeavesByStudentLeaveStatus(status1);
+        System.out.println(studentLeaves.size());
+        if(studentLeaves!=null && studentLeaves.size()>0){
+            List<StudentLeaveDTO> studentLeaveDTOList = studentLeaves.stream().map(student-> new StudentLeaveDTO(student.getId(),
+                    student.getSubject(), student.getBody(), student.getDate(),
+                    student.getStudentLeaveStatus(),student.getUser().getStudentClass(),student.getUser().getName(), student.getUser().getId())).collect(Collectors.toList());
+            return studentLeaveDTOList;
+        }
+        return null;
+    }
+
+    @Override
+    public LeaveChartDTO getLeaveChart() {
+
+        List<StudentLeave> studentLeaves = studentLeaveRepository.findAll();
+
+        LeaveChartDTO leaveChartDTO = new LeaveChartDTO();
+        leaveChartDTO.setApprovedLeaves(studentLeaves.stream().filter(leave-> leave.getStudentLeaveStatus() == StudentLeaveStatus.Approved).count());
+
+        leaveChartDTO.setPendingLeaves(studentLeaves.stream().filter(leave-> leave.getStudentLeaveStatus() == StudentLeaveStatus.Pending).count());
+
+        leaveChartDTO.setDisApprovedLeaves(studentLeaves.stream().filter(leave-> leave.getStudentLeaveStatus() == StudentLeaveStatus.Disapproved).count());
+
+        return leaveChartDTO;
     }
 
 }

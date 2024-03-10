@@ -29,7 +29,6 @@
   }
 }
 
-
 .student-info{
     h2{
         font-size:20px;
@@ -53,4 +52,10 @@ mat-card-actions{
     justify-content: flex-end;
 }
 
+}
+
+.center{
+    display: flex; 
+    justify-content:center; 
+    align-items:center
 }

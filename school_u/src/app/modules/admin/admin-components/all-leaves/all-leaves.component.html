@@ -1,6 +1,19 @@
+<div class="center">
+    <mat-card-actions >
+        <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+            Filter
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="leaveFilter('Approved')">Approve</button>
+            <button mat-menu-item (click)="leaveFilter('Pending')">Pending</button>
+            <button mat-menu-item (click)="leaveFilter('Disapproved')">Disapproved</button>
+        </mat-menu>
+     </mat-card-actions> 
+</div>
+
 <div class="card-container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
     <mat-card class="student-card" *ngFor="let leave of leaves">
-        <mat-card-header style="background-color: #3f51b5;">
+        <mat-card-header style="background-color:#7B1FA2;">
             <mat-card-title style="color: white">Name: <strong>{{ leave.studentName }}</strong></mat-card-title>
             <mat-card-title style="color: white">Class: <strong>{{ leave.studentClass }}</strong></mat-card-title>
         </mat-card-header>
@@ -19,8 +32,8 @@
             Action
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="changeLeaveStatus(leave.id,'Approve')">Approve</button>
-            <button mat-menu-item (click)="changeLeaveStatus(leave.id,'Reject')">Reject</button>
+            <button mat-menu-item (click)="changeLeaveStatus(leave.id,'Approve')"><span style="color:green">Approve</span></button>
+            <button mat-menu-item (click)="changeLeaveStatus(leave.id,'Reject')"><span style="color:red">Reject</span></button>
         </mat-menu>
      </mat-card-actions> 
 

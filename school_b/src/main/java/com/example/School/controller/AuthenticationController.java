@@ -61,7 +61,8 @@ public class AuthenticationController {
         if(optionalUser.isPresent()){
             response.getWriter().write(new JSONObject()
                     .put("userId", optionalUser.get().getId())
-                    .put("role", optionalUser.get().getUserRole()).toString());
+                    .put("role", optionalUser.get().getUserRole())
+                    .put("username",optionalUser.get().getName()).toString());
         }
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
         response.setHeader("Access-Control-Allow-Headers", "Authorization, X-Pingother,Origin,X-Requested-With, Content-Type, Accept, X-Custom-header");

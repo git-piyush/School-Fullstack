@@ -32,4 +32,8 @@ public interface AdminService {
     SingleTeacherDTO getTeacherById(Long teacherId);
 
     TeacherDTO updateTeacher(TeacherDTO teacherDTO, Long teacherId);
+
+    List<StudentLeaveDTO> findAllLeavesByStudentLeaveStatus(String status);
+
+    LeaveChartDTO getLeaveChart();
 }

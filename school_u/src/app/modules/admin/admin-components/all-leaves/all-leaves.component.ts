@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AllLeavesComponent {
 
+  LEAVESTATUS: string[] = ["Male", "Female", "Not Specified"];
+
   isSpinning = false;
   leaves: any;
 
@@ -29,6 +31,21 @@ export class AllLeavesComponent {
       this.isSpinning = false;
       this.leaves = res;
     })
+  }
+
+  leaveFilter(status: string){
+    this.isSpinning = true;
+    this.service.filterLeaves(status).subscribe((res)=>{
+      console.log(res);
+      this.isSpinning = false;
+      this.leaves = res;
+    }, error=>{
+      if(error.status==404)
+      this.leaves = null;
+      this.snackbar.open("No Record Found.", 'Error',{
+        duration: 5000
+      });
+    });
   }
 
   changeLeaveStatus(leaveId: number, status: string){

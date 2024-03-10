@@ -27,6 +27,7 @@ export class AuthService {
       .pipe(
        tap(__ => this.log("User Authentication")),
        map((res:HttpResponse<any>)=>{
+        console.log(res.body);
             this.storage.saveUser(res.body)
             const tokenLength = res.headers.get(AUTH_HEADER).length;
             const bearerToken = res.headers.get(AUTH_HEADER).substring(7, tokenLength);

@@ -63,6 +63,15 @@ export class StorageService {
     return JSON.parse(localStorage.getItem(USER));
   }
 
+  static getUsername():any {
+    const user = this.getUser();
+    if(user == null){
+      return '';
+    }else{
+      return user.username;
+    }
+  }
+
   static logout(){
     window.localStorage.removeItem(TOKEN);
     window.localStorage.removeItem(USER);

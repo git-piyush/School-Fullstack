@@ -28,12 +28,13 @@ export class AllStudentsComponent {
   }
 
   deleteStudent(studentId: number){
-    console.log(studentId);
-    this.service.deleteStudent(studentId).subscribe((res)=>{
-      console.log("pk"+res);
-      this.getAllStudents();
-      this.snackbar.open("Student deleted successfully","Close",{duration:5000})
-    })
+    if(confirm("Are you sure about this deletion?")){
+      this.service.deleteStudent(studentId).subscribe((res)=>{
+        console.log("pk"+res);
+        this.getAllStudents();
+        this.snackbar.open("Student deleted successfully","Close",{duration:5000})
+      })
+    }
   }
 
   

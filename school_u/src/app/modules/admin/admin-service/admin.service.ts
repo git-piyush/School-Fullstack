@@ -51,15 +51,19 @@ export class AdminService {
   }
 
   getAllLeaves(): Observable<any>{
-    console.log("before call"+StorageService.getToken());
     return this.http.get<[]>(BASIC_URL + "api/admin/leaves",{
       headers: this.createAuthHeader()
     })
   }
 
   changeLeaveStatus(leaveId: number, status:string): Observable<any>{
-    console.log("before call"+leaveId+" "+status);
     return this.http.get<[]>(BASIC_URL+`api/admin/leave/${leaveId}/${status}`,{
+      headers: this.createAuthHeader()
+    })
+  }
+
+  filterLeaves(status:string):Observable<any>{
+    return this.http.get<[]>(BASIC_URL+`api/admin/leave/${status}`,{
       headers: this.createAuthHeader()
     })
   }
@@ -104,6 +108,12 @@ export class AdminService {
 
   getChartData(): Observable<any>{
     return this.http.get(BASIC_URL+"chartdata");
+  }
+
+  getChartData2(): Observable<any>{
+    return this.http.get<[]>(BASIC_URL + `api/admin/leaveChart`,{
+      headers: this.createAuthHeader()
+    });
   }
 
 }

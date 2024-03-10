@@ -9,19 +9,26 @@ import { StorageService } from './auth/services/storage/storage.service';
 })
 export class AppComponent {
   title = 'school management system';
+  name:string='';
 
   isAdminLoggedIn: boolean;
   isStudentLoggedIn: boolean;
 
-  constructor(private router : Router){}
+  constructor(private router : Router,
+    private storage: StorageService){}
 
   ngOnInit(){
+    this.getUser();
     this.updateUserLoggedStatus();
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationEnd){
         this.updateUserLoggedStatus();
       }
     })
+  }
+
+  getUser(){
+    this.name = StorageService.getUsername();
   }
 
   private updateUserLoggedStatus(){

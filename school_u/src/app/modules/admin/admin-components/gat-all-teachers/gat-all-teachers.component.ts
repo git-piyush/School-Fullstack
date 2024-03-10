@@ -28,12 +28,13 @@ export class GatAllTeachersComponent {
   }
 
   deleteTeacher(teacherId:number){
-    console.log(teacherId);
-    this.service.deleteTeacher(teacherId).subscribe((res)=>{
-      console.log("pk"+res);
-      this.getAllTeachers();
-      this.snackbar.open("Teacher deleted successfully","Close",{duration:5000})
-    })
+    if(confirm("Are you sure about this deletion?")){
+      this.service.deleteTeacher(teacherId).subscribe((res)=>{
+        console.log("pk"+res);
+        this.getAllTeachers();
+        this.snackbar.open("Teacher deleted successfully","Close",{duration:5000})
+      })
+    }
   }
 
 }

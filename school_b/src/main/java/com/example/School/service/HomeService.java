@@ -3,6 +3,7 @@ package com.example.School.service;
 import com.example.School.dto.ChartDTO;
 import com.example.School.dto.TeacherDTO;
 import com.example.School.entity.Teacher;
+import com.example.School.enums.UserRole;
 import com.example.School.repository.TeacherRepository;
 import com.example.School.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class HomeService {
     public ChartDTO getChartData() {
         ChartDTO chartDTO = new ChartDTO();
         chartDTO.setNoOfTeachers(teacherRepository.count());
-        chartDTO.setNoOfStudents(userRepository.count());
+        chartDTO.setNoOfStudents(userRepository.findAllByUserRole(UserRole.STUDENT).stream().count());
         return chartDTO;
     }
 }

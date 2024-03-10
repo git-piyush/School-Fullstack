@@ -16,6 +16,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+
    // @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/student")
     public ResponseEntity<?> addStudent(@RequestBody StudentDTO studentDTO){
@@ -91,6 +92,15 @@ public class AdminController {
         return  ResponseEntity.ok(studentLeaveDTO);
     }
 
+    @GetMapping("/leave/{status}")
+    public ResponseEntity<List<StudentLeaveDTO>> getLeavesByStatus(@PathVariable String status){
+        List<StudentLeaveDTO> studentLeaveDTO = adminService.findAllLeavesByStudentLeaveStatus(status);
+        if(studentLeaveDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        return  ResponseEntity.ok(studentLeaveDTO);
+    }
+
 
     @GetMapping("/leave/{leaveId}/{status}")
     public ResponseEntity<?> changeLeaveStatus(@PathVariable Long leaveId, @PathVariable String status){
@@ -103,6 +113,8 @@ public class AdminController {
         System.out.println("changeLeaveStatus api executing done");
         return ResponseEntity.ok(studentLeaveDTO);
     }
+
+
 
 
     @PostMapping("/teacher")
@@ -152,4 +164,12 @@ public class AdminController {
         System.out.println("update api executing ended");
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedTeacherDTO);
     }
+
+    @GetMapping("/leaveChart")
+    public ResponseEntity<LeaveChartDTO> getLeaveChart(){
+        LeaveChartDTO leaveChartDTO = adminService.getLeaveChart();
+        return ResponseEntity.ok(leaveChartDTO);
+    }
+
+
 }

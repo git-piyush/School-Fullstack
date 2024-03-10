@@ -16,11 +16,17 @@ export class AdmindashboardComponent {
   chartData: number[] = [];
   chartDatalabels : any[] = [];
 
+  ctx1 : any;
+  config1: any;
+  chartData1: number[] = [];
+  chartDatalabels1 : any[] = [];
+
   ngOnInit(){
-    this.getChartData();
+    this.getChartData1();
+    this.getChartData2();
   }
 
-  getChartData(){
+  getChartData1(){
     this.service.getChartData().subscribe((res)=>{
       console.log(res);
       this.chartData.push(res.noOfStudents);
@@ -43,6 +49,35 @@ export class AdmindashboardComponent {
         }
       }
       const myChart = new Chart(this.ctx, this.config);
+    })
+
+  }
+
+  getChartData2(){
+    this.service.getChartData2().subscribe((res)=>{
+      console.log(res);
+      this.chartData1.push(res.approvedLeaves);
+      this.chartData1.push(res.disApprovedLeaves);
+      this.chartData1.push(res.pendingLeaves);
+  
+      this.chartDatalabels1.push('Approved Leaves');
+      this.chartDatalabels1.push('Disapproved Leaves');
+      this.chartDatalabels1.push('Pending Leaves');
+  
+      this.ctx1 = document.getElementById('myChart1');
+      this.config1 = {
+        type: 'pie',
+        options:{
+        },
+        data:{
+          labels: this.chartDatalabels,
+          datasets:[{
+            label: 'Chart Data',
+            data: this.chartData1,
+          }],
+        }
+      }
+      const myChart1 = new Chart(this.ctx1, this.config1);
     })
   }
 
